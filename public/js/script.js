@@ -1,35 +1,35 @@
-// === بخش جدید: کنترل تب‌های کارت مرکزی ===
+// === New section: control tabs in the central card ===
 const crawlBtn = document.getElementById("crawlBtn");
 const searchBtn = document.getElementById("searchBtn");
 const crawlBox = document.getElementById("crawlBox");
 const searchBox = document.getElementById("searchBox");
 
 crawlBtn.addEventListener("click", () => {
-  // نمایش محتوای استخراج
+  // Show the crawling content
   crawlBox.style.display = "block";
   searchBox.style.display = "none";
   
-  // فعال کردن تب
+  // Activate the tab
   crawlBtn.classList.add("active");
   searchBtn.classList.remove("active");
 });
 
 searchBtn.addEventListener("click", () => {
-  // نمایش محتوای جستجو
+  // Show the search content
   crawlBox.style.display = "none";
   searchBox.style.display = "block";
 
-  // فعال کردن تب
+  // Activate the tab
   crawlBtn.classList.remove("active");
   searchBtn.classList.add("active");
 });
 
 
-// === بخش قبلی: کدهای داخل DOMContentLoaded (بدون تغییر) ===
-// وقتی کل صفحه لود شد
+// === Previous section: code inside DOMContentLoaded (unchanged) ===
+// When the entire page has loaded
 document.addEventListener("DOMContentLoaded", () => {
   
-  // ✅ آکاردئون جستجوی اخبار
+  // ✅ News search accordion
   const items = document.querySelectorAll(".accordion .item");
 
   items.forEach((item) => {
@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
     title.addEventListener("click", () => {
       const isOpen = content.classList.contains("open");
 
-      // بستن همه‌ی آکاردئون‌ها
+      // Close all accordion sections
       document.querySelectorAll(".accordion .content").forEach((c) => {
         c.classList.remove("open");
         c.style.maxHeight = null;
       });
 
-      // باز کردن همونی که روش کلیک شده
+      // Open the one that was clicked
       if (!isOpen) {
         content.classList.add("open");
         content.style.maxHeight = content.scrollHeight + "px";
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ✅ فعال‌سازی تقویم شمسی
+  // ✅ Initialize Persian calendar
   if (window.jQuery) {
     $("#fromDate, #toDate, #searchFrom, #searchTo").persianDatepicker({
       format: "YYYY/MM/DD",
@@ -62,11 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ✅ اصلاح رفتار دکمه‌های داخلی (برای جلوگیری از تداخل با آکاردئون)
+  // ✅ Fix behavior of inner buttons (prevent conflict with accordion)
   document.querySelectorAll(".accordion .content button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
-      console.log("🔍 دکمه جستجو کلیک شد:", btn.parentElement.id);
+      console.log("🔍 Search button clicked:", btn.parentElement.id);
     });
   });
 });

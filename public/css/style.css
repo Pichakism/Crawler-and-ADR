@@ -11,27 +11,27 @@ body, html {
   height: 100%;
   overflow: hidden;
   direction: rtl;
-  /* اضافه شده: برای وسط‌چینی کارت */
+  /* Added: to center the card */
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(135deg, #2469d8, #0b996a); /* یک پس‌زمینه برای کل صفحه */
+  background: linear-gradient(135deg, #2469d8, #0b996a); /* A background for the entire page */
 }
 
-/* === ساختار کارت مرکزی === */
+/* === Central card structure === */
 
 .central-card {
-  width: 50vw; /* 50% عرض صفحه */
-  /* height: 40vh;  <-- این خط حذف یا کامنت شود */
+  width: 50vw; /* 50% of the viewport width */
+  /* height: 40vh;  <-- remove or comment out this line */
   background: white;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0,0,0,0.2);
   
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* این بماند تا گوشه‌های گرد درست کار کنند */
+  overflow: hidden; /* Keep this to make rounded corners work properly */
   
-  /* می‌توانید یک انیمیشن نرم برای تغییر اندازه اضافه کنید */
+  /* You can add a smooth animation for resizing */
   transition: all 0.3s ease-out;
 }
 
@@ -42,14 +42,14 @@ body, html {
 
 .card-content {
   padding: 25px 40px;
-  /* مهم: اگر محتوا زیاد شد اسکرول بخورد */
+  /* Important: enable scroll if content overflows */
   /*overflow-y: auto;
-  flex-grow: 1; /* تمام ارتفاع باقیمانده را می‌گیرد */
+  flex-grow: 1; /* Takes up the remaining height */
 }
 
-/* === دکمه‌های اصلی (تب‌ها) === */
+/* === Main buttons (tabs) === */
 .btn.tab-btn {
-  flex: 1; /* هر دو دکمه عرض یکسان می‌گیرند */
+  flex: 1; /* Both buttons get equal width */
   padding: 18px 20px;
   font-size: 16px;
   font-weight: 600;
@@ -72,19 +72,18 @@ body, html {
   border-bottom: 3px solid #0b996a;
 }
 
-/* === فرم‌های داخلی === */
+/* === Inner forms === */
 
 .form-box {
-  /* تمام استایل‌های position: absolute و opacity: 0 حذف شدند */
+  /* All position: absolute and opacity: 0 styles removed */
   text-align: center;
-  /* باکس‌ها به طور پیش‌فرض مخفی هستند و با JS نمایش داده می‌شوند */
+  /* Boxes are hidden by default and shown with JS */
   display: none; 
 }
 
 .form-box.active {
-  display: block; /* نمایش باکس فعال */
+  display: block; /* Display the active box */
 }
-
 
 .form-box h3 {
   color: #333;
@@ -105,7 +104,7 @@ input, select {
   gap: 10px;
 }
 
-/* === آکاردئون (بدون تغییر) === */
+/* === Accordion (unchanged) === */
 .accordion {
   display: flex;
   flex-direction: column;
@@ -179,9 +178,9 @@ input, select {
   font-size: 0.95rem;
 }
 
-/* === دکمه‌های کوچک داخلی (بدون تغییر) === */
+/* === Small internal buttons (unchanged) === */
 
-/* دکمه‌های داخل آکاردئون */
+/* Buttons inside accordion */
 .accordion .content button.btn.small-btn {
   width: fit-content;
   margin: 15px 0;
@@ -207,7 +206,7 @@ input, select {
   box-shadow: 0 3px 8px rgba(29, 78, 216, 0.25);
 }
 
-/* دکمه استخراج اخبار */
+/* News extraction button */
 #crawlBox .btn.small-btn {
   display: block;
   margin: 20px auto 0;
@@ -230,5 +229,5 @@ input, select {
 
 #crawlBox,
 #searchBox {
-  width: 100%; /* عرض کامل والد (card-content) */
+  width: 100%; /* Full width of the parent (card-content) */
 }

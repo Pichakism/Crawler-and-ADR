@@ -4,22 +4,19 @@ const app = express();
 const port = 3000;
 const searchRoute = require("./routes/search");
 
-
-// تنظیمات EJS
+// EJS settings
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// فایل‌های استاتیک
+// Static files
 app.use(express.static(path.join(__dirname, "public")));
 
-// صفحه اصلی
+// Home page
 app.get("/", (req, res) => {
   res.render("index", { title: "News Search" });
 });
 
-
 app.use("/search", searchRoute);
 
-
-// شروع سرور
+// Start the server
 app.listen(port, () => console.log("Server running on http://localhost:" + port));
