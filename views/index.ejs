@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>News Crawler & Search</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+</head>
+<body>
+
+  <div class="central-card">
+    
+    <div class="card-header">
+      <button id="crawlBtn" class="btn tab-btn active">استخراج اخبار</button>
+      <button id="searchBtn" class="btn tab-btn">جستجوی اخبار</button>
+    </div>
+
+    <div class="card-content">
+
+      <div class="box form-box" id="crawlBox" style="display: block;"> <h3>بازه زمانی استخراج اخبار</h3>
+        <div class="date-inputs">
+          <label>از تاریخ:</label>
+          <input type="text" id="fromDate">
+          <label>تا تاریخ:</label>
+          <input type="text" id="toDate">
+        </div>
+        <button class="btn small-btn">استخراج</button>
+      </div>
+
+      <div class="box form-box" id="searchBox" style="display: none;"> <h3>نوع جستجو</h3>
+        <div class="accordion">
+          <div class="item">
+            <div class="title" data-target="titleSearch">جستجو در عنوان خبر</div>
+            <div class="content" id="titleSearch">
+              <input type="text" placeholder="عبارت مورد نظر را وارد کنید...">
+              <button class="btn small-btn">جستجو</button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="title" data-target="textSearch">جستجو در متن خبر</div>
+            <div class="content" id="textSearch">
+              <input type="text" placeholder="عبارت مورد نظر را وارد کنید...">
+              <button class="btn small-btn">جستجو</button>
+            </div>
+          </div>
+          <div class="item">
+            <div class="title" data-target="dateSearch">جستجو بر اساس تاریخ</div>
+            <div class="content" id="dateSearch">
+              <label>از تاریخ:</label>
+              <input type="text" id="searchFrom">
+              <label>تا تاریخ:</label>
+              <input type="text" id="searchTo">
+              <input type="text" placeholder="عبارت مورد نظر...">
+              <button class="btn small-btn">جستجو</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div> </div> <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+  <script src="/js/script.js"></script>
+</body>
+</html>

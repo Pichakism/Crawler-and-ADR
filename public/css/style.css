@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Vazirmatn", sans-serif;
+}
+
+body, html {
+  height: 100%;
+  overflow: hidden;
+  direction: rtl;
+  /* اضافه شده: برای وسط‌چینی کارت */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2469d8, #0b996a); /* یک پس‌زمینه برای کل صفحه */
+}
+
+/* === ساختار کارت مرکزی === */
+
+.central-card {
+  width: 50vw; /* 50% عرض صفحه */
+  /* height: 40vh;  <-- این خط حذف یا کامنت شود */
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* این بماند تا گوشه‌های گرد درست کار کنند */
+  
+  /* می‌توانید یک انیمیشن نرم برای تغییر اندازه اضافه کنید */
+  transition: all 0.3s ease-out;
+}
+
+.card-header {
+  display: flex;
+  border-bottom: 1px solid #eee;
+}
+
+.card-content {
+  padding: 25px 40px;
+  /* مهم: اگر محتوا زیاد شد اسکرول بخورد */
+  /*overflow-y: auto;
+  flex-grow: 1; /* تمام ارتفاع باقیمانده را می‌گیرد */
+}
+
+/* === دکمه‌های اصلی (تب‌ها) === */
+.btn.tab-btn {
+  flex: 1; /* هر دو دکمه عرض یکسان می‌گیرند */
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #555;
+  border: none;
+  border-radius: 0;
+  background: #f0f0f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.btn.tab-btn:hover {
+  background: #e9e9e9;
+}
+
+.btn.tab-btn.active {
+  background: #fff;
+  color: #0b996a;
+  border-bottom: 3px solid #0b996a;
+}
+
+/* === فرم‌های داخلی === */
+
+.form-box {
+  /* تمام استایل‌های position: absolute و opacity: 0 حذف شدند */
+  text-align: center;
+  /* باکس‌ها به طور پیش‌فرض مخفی هستند و با JS نمایش داده می‌شوند */
+  display: none; 
+}
+
+.form-box.active {
+  display: block; /* نمایش باکس فعال */
+}
+
+
+.form-box h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+input, select {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.date-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* === آکاردئون (بدون تغییر) === */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 15px;
+}
+.accordion .item {
+  background-color: #f8f9fa;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 10px;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+  color: #333;
+}
+.accordion .item:hover {
+  border-color: #0ea5e9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.accordion .title {
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 8px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #111;
+}
+.accordion .title::after {
+  content: "⌄";
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+  color: #666;
+}
+.accordion .item.open .title::after {
+  transform: rotate(180deg);
+  color: #0ea5e9;
+}
+.accordion .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.3s ease, padding 0.3s ease;
+  padding: 0 5px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+.accordion .content.open {
+  max-height: 400px;
+  opacity: 1;
+  padding: 10px 5px 15px;
+}
+.accordion label {
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #333;
+}
+.accordion input[type="text"] {
+  width: 100%;
+  padding: 7px 10px;
+  margin: 6px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  background-color: #fff;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* === دکمه‌های کوچک داخلی (بدون تغییر) === */
+
+/* دکمه‌های داخل آکاردئون */
+.accordion .content button.btn.small-btn {
+  width: fit-content;
+  margin: 15px 0;
+  background-color: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+.accordion .content button.btn.small-btn:hover {
+  background-color: #1b4cd3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(29, 78, 216, 0.35);
+}
+.accordion .content button.btn.small-btn:active {
+  background-color: #1945be;
+  transform: scale(0.97);
+  box-shadow: 0 3px 8px rgba(29, 78, 216, 0.25);
+}
+
+/* دکمه استخراج اخبار */
+#crawlBox .btn.small-btn {
+  display: block;
+  margin: 20px auto 0;
+  background-color: #059669;
+  padding: 10px 35px;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(5, 150, 105, 0.3);
+  transition: all 0.3s ease;
+}
+#crawlBox .btn.small-btn:hover {
+  background-color: #047857;
+  transform: translateY(-2px);
+}
+#crawlBox .btn.small-btn:active {
+  background-color: #035c43;
+  transform: scale(0.97);
+  box-shadow: 0 3px 10px rgba(5, 136, 94, 0.3);
+}
+
+#crawlBox,
+#searchBox {
+  width: 100%; /* عرض کامل والد (card-content) */
+}
