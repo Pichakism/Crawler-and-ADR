@@ -29,7 +29,7 @@ searchBtn.addEventListener("click", () => {
 // When the entire page has loaded
 document.addEventListener("DOMContentLoaded", () => {
   
-  // ✅ News search accordion
+  //News search accordion
   const items = document.querySelectorAll(".accordion .item");
 
   items.forEach((item) => {
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     title.addEventListener("click", () => {
       const isOpen = content.classList.contains("open");
 
-      // Close all accordion sections
+      //Close all accordion sections
       document.querySelectorAll(".accordion .content").forEach((c) => {
         c.classList.remove("open");
         c.style.maxHeight = null;
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ✅ Initialize Persian calendar
+  //Initialize Persian calendar
   if (window.jQuery) {
     $("#fromDate, #toDate, #searchFrom, #searchTo").persianDatepicker({
       format: "YYYY/MM/DD",
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // ✅ Fix behavior of inner buttons (prevent conflict with accordion)
+  //Fix behavior of inner buttons (prevent conflict with accordion)
   document.querySelectorAll(".accordion .content button").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
