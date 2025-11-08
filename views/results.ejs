@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>نتایج جستجو</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #2469d8, #0b996a);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .results-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #eee;
+    }
+    .header h1 {
+      color: #0b996a;
+      font-size: 24px;
+      margin: 0;
+    }
+    .back-btn {
+      background: #2469d8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-btn:hover {
+      background: #1b4cd3;
+    }
+    .search-info {
+      background: #f0f9ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .news-item {
+      background: #f8f9fa;
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      border-right: 4px solid #0b996a;
+      transition: all 0.3s;
+    }
+    .news-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    .news-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 10px;
+    }
+    .news-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .news-meta span {
+      background: white;
+      padding: 4px 10px;
+      border-radius: 5px;
+    }
+    .news-text {
+      color: #444;
+      line-height: 1.8;
+      margin-top: 10px;
+    }
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: #666;
+    }
+    .error-msg {
+      background: #fee;
+      color: #c33;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .news-item a {
+      color: #0b996a;
+      text-decoration: none;
+    }
+    .news-item a:hover {
+      text-decoration: underline;
+    }
+    .news-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .news-modal-content {
+      background: white;
+      margin: 20px auto;
+      max-width: 800px;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      position: relative;
+      min-height: calc(100vh - 40px);
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+    }
+    .news-modal-close {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #c33;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .news-modal-close:hover {
+      background: #a22;
+    }
+    .news-modal-title {
+      font-size: 24px;
+      font-weight: 600;
+      color: #111;
+      margin-bottom: 20px;
+      padding-right: 50px;
+    }
+    .news-modal-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .news-modal-meta span {
+      background: #f0f9ff;
+      padding: 5px 12px;
+      border-radius: 5px;
+    }
+    .news-modal-text {
+      color: #444;
+      line-height: 2;
+      font-size: 16px;
+      text-align: justify;
+    }
+  </style>
+</head>
+<body>
+  <div class="results-container">
+    <div class="header">
+      <h1>نتایج جستجو</h1>
+      <a href="/" class="back-btn" onclick="return goToSearchPage()">← بازگشت</a>
+    </div>
+
+    <% if (error) { %>
+      <div class="error-msg"><%= error %></div>
+    <% } %>
+
+    <% if (suggestions && suggestions.length > 0) { %>
+      <div class="search-info" style="background: #fff9e6; border: 1px solid #ffa500;">
+        <strong>💡 پیشنهاد:</strong> آیا منظور شما 
+        <% suggestions.forEach(function(sug, idx) { %>
+          <strong style="color: #0b996a; cursor: pointer;"><%= sug %></strong><%= idx < suggestions.length - 1 ? '، ' : '' %>
+        <% }); %>
+        بود؟
+      </div>
+    <% } %>
+
+    <% if (results && results.length > 0) { %>
+      <div class="search-info">
+        <strong><%= total || results.length %></strong> نتیجه برای: <strong><%= query %></strong>
+      </div>
+
+      <% results.forEach(function(item) { %>
+        <div class="news-item" onclick="showNewsDetail(<%- JSON.stringify(item._source) %>)" style="cursor: pointer;">
+          <div class="news-title">
+            <% if (item.highlight && item.highlight.title) { %>
+              <%- item.highlight.title[0] %>
+            <% } else { %>
+              <%= item._source.title %>
+            <% } %>
+          </div>
+          <div class="news-meta">
+            <% if (item._source.code) { %>
+              <span>🔢 کد خبر: <%= item._source.code %></span>
+            <% } %>
+            <span>📅 تاریخ: <%= item._source.date_shamsi || item._source.date %></span>
+            <span>📂 دسته: <%= item._source.category %></span>
+            <% if (item._source.url) { %>
+              <span>🔗 <a href="<%= item._source.url %>" target="_blank" onclick="event.stopPropagation();">لینک اصلی</a></span>
+            <% } %>
+            <% if (item._source.short_url) { %>
+              <span>🔗 <a href="<%= item._source.short_url %>" target="_blank" onclick="event.stopPropagation();">لینک کوتاه</a></span>
+            <% } %>
+          </div>
+          <% if (item._source.summary) { %>
+            <div class="news-summary" style="background: #f0f9ff; padding: 10px; border-radius: 5px; margin-bottom: 10px; font-style: italic; color: #555;">
+              <% if (item.highlight && item.highlight.summary) { %>
+                <%- item.highlight.summary[0] %>
+              <% } else { %>
+                <%= item._source.summary %>
+              <% } %>
+            </div>
+          <% } %>
+          <div class="news-text">
+            <% if (item.highlight && item.highlight.text) { %>
+              <% item.highlight.text.forEach(function(fragment) { %>
+                <p><%- fragment %>...</p>
+              <% }); %>
+            <% } else if (item._source.text) { %>
+              <%= item._source.text.substring(0, 300) %>...
+            <% } %>
+          </div>
+          <% if (item._source.tags && item._source.tags.length > 0) { %>
+            <div class="news-tags" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 5px;">
+              <% item._source.tags.forEach(function(tag) { %>
+                <span style="background: #e3f2fd; color: #1976d2; padding: 3px 8px; border-radius: 12px; font-size: 11px;">
+                  #<%= tag %>
+                </span>
+              <% }); %>
+            </div>
+          <% } %>
+          <div style="margin-top: 10px; color: #0b996a; font-size: 12px;">👆 کلیک کنید برای مشاهده کامل خبر</div>
+        </div>
+      <% }); %>
+    <% } else if (!error) { %>
+      <div class="no-results">
+        <h3>هیچ نتیجه‌ای یافت نشد</h3>
+        <p>لطفا با کلمات کلیدی دیگری جستجو کنید.</p>
+      </div>
+    <% } %>
+
+    <!-- Modal برای نمایش کامل خبر -->
+    <div id="newsModal" class="news-modal">
+      <div class="news-modal-content">
+        <button class="news-modal-close" onclick="closeNewsModal()">✕ بستن</button>
+        <div id="modalContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goToSearchPage() {
+      // ذخیره کردن اینکه باید به صفحه جستجو بریم
+      sessionStorage.setItem('showSearchTab', 'true');
+      return true; // اجازه می‌دهیم لینک کار کنه
+    }
+
+    function showNewsDetail(news) {
+      const modal = document.getElementById('newsModal');
+      const content = document.getElementById('modalContent');
+      
+      // Escape HTML برای جلوگیری از XSS
+      function escapeHtml(text) {
+        if (!text) return '';
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+      
+      let tagsHtml = '';
+      if (news.tags && news.tags.length > 0) {
+        tagsHtml = '<div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 5px;">';
+        news.tags.forEach(tag => {
+          tagsHtml += `<span style="background: #e3f2fd; color: #1976d2; padding: 5px 10px; border-radius: 12px; font-size: 12px;">#${escapeHtml(tag)}</span>`;
+        });
+        tagsHtml += '</div>';
+      }
+      
+      content.innerHTML = `
+        <div class="news-modal-title">${escapeHtml(news.title)}</div>
+        <div class="news-modal-meta">
+          ${news.code ? `<span>🔢 کد خبر: ${escapeHtml(news.code)}</span>` : ''}
+          <span>📅 تاریخ: ${escapeHtml(news.date_shamsi || news.date)}</span>
+          <span>📂 دسته: ${escapeHtml(news.category)}</span>
+          ${news.url ? `<span>🔗 <a href="${escapeHtml(news.url)}" target="_blank">لینک اصلی</a></span>` : ''}
+          ${news.short_url ? `<span>🔗 <a href="${escapeHtml(news.short_url)}" target="_blank">لینک کوتاه</a></span>` : ''}
+        </div>
+        ${news.summary ? `<div style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-style: italic; color: #555; border-right: 3px solid #0b996a;">${escapeHtml(news.summary)}</div>` : ''}
+        <div class="news-modal-text">${escapeHtml(news.text)}</div>
+        ${tagsHtml}
+      `;
+      
+      modal.style.display = 'block';
+      // اسکرول به بالای modal
+      modal.scrollTop = 0;
+    }
+
+    function closeNewsModal() {
+      document.getElementById('newsModal').style.display = 'none';
+    }
+
+    // بستن modal با کلیک روی background
+    document.getElementById('newsModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeNewsModal();
+      }
+    });
+
+    // بستن modal با کلید ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeNewsModal();
+      }
+    });
+  </script>
+</body>
+</html>
+

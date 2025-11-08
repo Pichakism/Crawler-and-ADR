@@ -30,28 +30,52 @@
       <div class="box form-box" id="searchBox" style="display: none;"> <h3>نوع جستجو</h3>
         <div class="accordion">
           <div class="item">
-            <div class="title" data-target="titleSearch">جستجو در عنوان خبر</div>
+            <div class="title" data-target="titleSearch">جستجو در عنوان خبر (تیتر)</div>
             <div class="content" id="titleSearch">
-              <input type="text" placeholder="عبارت مورد نظر را وارد کنید...">
+              <input type="text" placeholder="مثال: انتخابات، پرسپولیس، آب...">
               <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 جستجو در تیتر خبر (عنوان اصلی)</small>
             </div>
           </div>
           <div class="item">
             <div class="title" data-target="textSearch">جستجو در متن خبر</div>
             <div class="content" id="textSearch">
-              <input type="text" placeholder="عبارت مورد نظر را وارد کنید...">
+              <input type="text" placeholder="مثال: ایران، تهران، ورزش...">
               <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 جستجو در محتوای کامل خبر</small>
             </div>
           </div>
           <div class="item">
-            <div class="title" data-target="dateSearch">جستجو بر اساس تاریخ</div>
-            <div class="content" id="dateSearch">
-              <label>از تاریخ:</label>
-              <input type="text" id="searchFrom">
-              <label>تا تاریخ:</label>
-              <input type="text" id="searchTo">
-              <input type="text" placeholder="عبارت مورد نظر...">
+            <div class="title" data-target="summarySearch">جستجو در خلاصه خبر</div>
+            <div class="content" id="summarySearch">
+              <input type="text" placeholder="مثال: انتخابات، پرسپولیس...">
               <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 جستجو در خلاصه/چکیده خبر</small>
+            </div>
+          </div>
+          <div class="item">
+            <div class="title" data-target="tagsSearch">جستجو در برچسب‌ها</div>
+            <div class="content" id="tagsSearch">
+              <input type="text" placeholder="مثال: انتخابات، ورزش، سیاست...">
+              <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 جستجو در برچسب‌های خبر</small>
+            </div>
+          </div>
+          <div class="item">
+            <div class="title" data-target="idSearch">جستجو با شماره خبر</div>
+            <div class="content" id="idSearch">
+              <input type="number" placeholder="مثال: 1، 25، 100...">
+              <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 شماره منحصر به فرد هر خبر</small>
+            </div>
+          </div>
+          <div class="item">
+            <div class="title" data-target="categorySearch">جستجو با موضوع/دسته‌بندی</div>
+            <div class="content" id="categorySearch">
+              <input type="text" placeholder="مثال: سیاسی، اقتصادی، فرهنگی، ورزشی...">
+              <button class="btn small-btn">جستجو</button>
+              <small style="color: #666; display: block; margin-top: 5px;">💡 دسته‌بندی خبر (سیاسی، اقتصادی، فرهنگی و...)</small>
+              <small style="color: #999; display: block; margin-top: 3px; font-size: 11px;">تفاوت با عنوان: عنوان = تیتر خبر | موضوع = دسته‌بندی</small>
             </div>
           </div>
         </div>
