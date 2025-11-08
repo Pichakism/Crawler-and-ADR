@@ -3,20 +3,26 @@ const path = require("path");
 const app = express();
 const port = 3000;
 const searchRoute = require("./routes/search");
+const crawlRoute = require("./routes/crawl");
 
-// EJS settings
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-// Static files
+
 app.use(express.static(path.join(__dirname, "public")));
 
-// Home page
+
 app.get("/", (req, res) => {
   res.render("index", { title: "News Search" });
 });
 
 app.use("/search", searchRoute);
+app.use("/crawl", crawlRoute);
 
-// Start the server
+
 app.listen(port, () => console.log("Server running on http://localhost:" + port));

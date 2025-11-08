@@ -1,23 +1,27 @@
 {
-  "name": "foradr",
+  "name": "news-crawler-search",
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "dev": "nodemon app.js"
   },
-  "keywords": [],
+  "keywords": [
+    "crawler",
+    "news",
+    "elasticsearch",
+    "search"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "News Crawler and Search Engine with Elasticsearch",
   "devDependencies": {
     "eslint": "^9.38.0"
   },
   "dependencies": {
-    "@elastic/elasticsearch": "^9.2.0",
-    "axios": "^1.13.1",
-    "cheerio": "^1.1.2",
+    "@elastic/elasticsearch": "^8.15.0",
     "ejs": "^3.1.10",
-    "elasticsearch": "^16.7.3",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "jalaali-js": "^1.2.8"
   }
 }
