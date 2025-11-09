@@ -15,18 +15,23 @@
       margin: 0 auto;
       background: white;
       border-radius: 15px;
-      padding: 30px;
+      padding: 0 30px 30px 30px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       max-height: 90vh;
       overflow-y: auto;
     }
     .header {
+      position: sticky;
+      top: 0;
+      background: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 30px;
-      padding-bottom: 20px;
+      margin-top: 0;
+      padding: 20px;
       border-bottom: 2px solid #eee;
+      z-index: 10;
     }
     .header h1 {
       color: #0b996a;
@@ -203,7 +208,7 @@
       </div>
 
       <% results.forEach(function(item) { %>
-        <div class="news-item" onclick="showNewsDetail(<%- JSON.stringify(item._source) %>)" style="cursor: pointer;">
+        <div class="news-item">
           <div class="news-title">
             <% if (item.highlight && item.highlight.title) { %>
               <%- item.highlight.title[0] %>
@@ -251,7 +256,9 @@
               <% }); %>
             </div>
           <% } %>
-          <div style="margin-top: 10px; color: #0b996a; font-size: 12px;">👆 کلیک کنید برای مشاهده کامل خبر</div>
+          <div style="margin-top: 10px; color: #0b996a; font-size: 12px;">
+            <a href="<%= item._source.url %>" target="_blank" onclick="event.stopPropagation();">👆 کلیک کنید برای مشاهده کامل خبر</a>
+          </div>
         </div>
       <% }); %>
     <% } else if (!error) { %>

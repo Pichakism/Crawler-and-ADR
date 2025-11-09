@@ -226,3 +226,15 @@ input, select {
 #searchBox {
   width: 100%;
 }
+
+#description {
+  color: #666;
+  display: block;
+  margin-top: 5px;
+}
+#description2 {
+  color: #999;
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+}
