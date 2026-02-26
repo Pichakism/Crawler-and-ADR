@@ -61,7 +61,7 @@ body, html {
   background: #fff;
   color: #0b996a;
   border-bottom: 3px solid #0b996a;
-}
+} 
 
 .form-box {
   text-align: center;
@@ -227,12 +227,12 @@ input, select {
   width: 100%;
 }
 
-#description {
+.description {
   color: #666;
   display: block;
   margin-top: 5px;
 }
-#description2 {
+.description2 {
   color: #999;
   display: block;
   margin-top: 3px;
